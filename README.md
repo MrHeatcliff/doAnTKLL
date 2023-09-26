@@ -3,13 +3,17 @@ Phát triển ứng dụng đo nhịp tim và oxy máu đơn giản
 
 **I. Tổng quan**
   - Ở đề tài này, nhóm em sẽ sử dụng Max30102 để đo nhịp tim và oxy máu và làm website và app mà trên đó hiển thị ra những thông tin như: Nhịp tim - oxy máu trong 1 khoảng thời gian nhất định
-  **1. Sơ đồ khối**
+    
+  **Sơ đồ khối**
 
 
 **II. Thực hiện**
+
   **1. Website và database**
+  
     _a) Database_
     - Sử dụng https://000webhost.com/ để tạo 1 host và domain.
+    
     - Tạo bảng và lưu trữ các biến: 
       + id: đây là khóa chính, đặt chế độ tự động tăng, kiểu số unsign int, độ dài 6
       
