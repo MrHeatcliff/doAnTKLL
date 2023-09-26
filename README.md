@@ -12,8 +12,7 @@ Phát triển ứng dụng đo nhịp tim và oxy máu đơn giản
   **1. Website và database**
   
     _a) Database_
-    - Sử dụng https://000webhost.com/ để tạo 1 host và domain.
-    
+    - Sử dụng https://000webhost.com/ để tạo 1 host và domain.    
     - Tạo bảng và lưu trữ các biến: 
       + id: đây là khóa chính, đặt chế độ tự động tăng, kiểu số unsign int, độ dài 6
       
