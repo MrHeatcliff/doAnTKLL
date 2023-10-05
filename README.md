@@ -46,3 +46,12 @@ Phát triển ứng dụng đo nhịp tim và oxy máu đơn giản
 - Tuần 12	
 - Tuần 13	viết báo cáo, powerpoint
 - Tuần 14	
+
+
+**Report tuần 3**
+- fix xong lỗi phần cứng
+- hoàn thành code sensor MAX 30102 để có thể thực hiện đo nhịp tim
+**Kế hoạch tuần 4**
+- Bắt đầu tìm hiểu về web, server
+- Tìm hiểu về html, css, php, mySQL
+- Tìm hiểu cách local host một server để đưa thông tin từ arduino.
