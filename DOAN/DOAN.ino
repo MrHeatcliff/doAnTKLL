@@ -11,9 +11,9 @@
 #define WIFI_SSID "FPT phong 12"
 #define WIFI_PASSWORD "matkhaula1"
 // Insert Firebase project API Key
-#define API_KEY "AIzaSyBnP8i6gDqx7Y-Hjm2nDRywTmLIvnk4k1c"
+#define API_KEY "AIzaSyBZUvbeKXJlo_5RJqKJEVk4b0GqgnE3FCY"
 // Insert RTDB URLefine the RTDB URL */
-#define DATABASE_URL "https://test-project-27bdb-default-rtdb.asia-southeast1.firebasedatabase.app/" // Insert RTDB URLefine the RTDB URL */
+#define DATABASE_URL "https://doantkll-73b19-default-rtdb.firebaseio.com/" // Insert RTDB URLefine the RTDB URL */
 // Define user authentication
 #define USER_EMAIL "ttdat170703@gmail.com"// Define user authentication
 #define USER_PASSWORD "admin@"
