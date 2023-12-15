@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>replit</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- type="text/css"  -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+  <!-- <canvas id="myChart"></canvas> -->
+
+
+
+  <!--
+  This script places a badge on your repl's full-browser view back to your repl's cover
+  page. Try various colors for the theme: dark, light, red, orange, yellow, lime, green,
+  teal, blue, blurple, magenta, pink!
+  -->
+  <div class="chart"><canvas id="myChart"></canvas></div>
+
+  <div class="normal">
+    BPM: <span id="bpm"> </span>
+    <!-- <br> -->
+    SpO2: <span id="oxy"> </span>%
+  </div>
+  <div class="ave">
+    Average BPM: <span id="avebpm"> </span>
+    <!-- <br> -->
+    Average SpO2: <span id="aveoxy"> </span>% <br>
+  </div>
+
+  <button id="saveButton">Save</button>
+  <button id="clearButton">Clear</button>
+  <button id="historyButton" Push>History</button>
+  </div>
+  <div id="popupContainer" class="popup-container">
+    <div id="popup" class="popup">
+      <span id="closeButton" class="close-button">&times;</span>
+      <div id="tableContainer"></div>
+    </div>
+  </div>
+  <script src="script.js" type="module"></script>
+
+  <script src="https://replit.com/public/js/replit-badge-v2.js" theme="dark" position="bottom-right"></script>
+</body>
+
+</html>
