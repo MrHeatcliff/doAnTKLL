@@ -1,13 +1,13 @@
 #include <Arduino.h>
+#include <Wire.h>
 #include <ESP8266WiFi.h>
 #include <FirebaseESP8266.h>
-#include <Wire.h>
-#include "MAX30100_PulseOximeter.h"
 #include "addons/TokenHelper.h" //Provide the token generation process info.
 #include "addons/RTDBHelper.h"  //Provide the RTDB payload printing info and other helper functions.
 
-#define REPORTING_PERIOD_MS     1000
 // Insert your network credentials
+// #define WIFI_SSID "OPPO Reno5"
+// #define WIFI_PASSWORD "lmaolmao"
 #define WIFI_SSID "FPT phong 12"
 #define WIFI_PASSWORD "matkhaula1"
 // Insert Firebase project API Key
@@ -18,12 +18,9 @@
 #define USER_EMAIL "ttdat170703@gmail.com"// Define user authentication
 #define USER_PASSWORD "admin@"
 
-// PulseOximeter is the higher level interface to the sensor
-// it offers:
-//  * beat detection reporting
-//  * heart rate calculation
-//  * SpO2 (oxidation level) calculation
-PulseOximeter pox;
+#define DEVICE_ID "HCMUT1"
+#define BEAT_PATH "/HCMUT1/beat"
+#define SPO2_PATH "/HCMUT1/SpO2"
 
 //Define Firebase Data object
 FirebaseData fbdo;
@@ -36,20 +33,13 @@ bool signupOK = false; //since we are doing an anonymous sign in
 String uid;
 String databasePath;
 
-uint32_t tsLastReport = 0;
-
 float beat_send = 0;
-uint8_t spo2_send = 0;
+float spo2_send = 0;
 
-// Callback (registered below) fired when a pulse is detected
-void onBeatDetected(){  
-  Serial.println("Beat!");
-}
-
-void setup()
-{
+void setup() {
+  // Open serial communications and wait for port to open:
   Serial.begin(115200);
-  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+    WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   Serial.print("Connecting to Wi-Fi");
   while (WiFi.status() != WL_CONNECTED) {
     Serial.print(".");
@@ -80,44 +70,41 @@ void setup()
   Firebase.begin( & config, & auth);
 
   Firebase.setDoubleDigits(5);
-  Serial.print("Initializing pulse oximeter..");
-  // Initialize the PulseOximeter instance
-  // Failures are generally due to an improper I2C wiring, missing power supply
-  // or wrong target chip
-  if (!pox.begin()) {
-      Serial.println("FAILED");
-      for(;;);
-  } else {
-      Serial.println("SUCCESS");
+  while (!Serial) {
+    ; // wait for serial port to connect. Needed for native USB port only
   }
-  // The default current for the IR LED is 50mA and it could be changed
-  //   by uncommenting the following line. Check MAX30100_Registers.h for all the
-  //   available options.
-  // pox.setIRLedCurrent(MAX30100_LED_CURR_7_6MA);
-  // Register a callback for the beat detection
-  pox.setOnBeatDetectedCallback(onBeatDetected);
 }
 
-void loop()
-{
-    // Make sure to call update as fast as possible
-    pox.update();
-    if (millis() - tsLastReport > REPORTING_PERIOD_MS) {
-      uid = auth.token.uid.c_str();
-      beat_send = pox.getHeartRate();
-      Serial.print("Heart rate:");
-      Serial.print(pox.getHeartRate());
-      spo2_send = pox.getSpO2();
-      Serial.print("bpm / SpO2:");
-      Serial.print(pox.getSpO2());
-      Serial.println("%");
-      pox.shutdown();
-      databasePath = "/data/" + uid + "/beat";
-      Firebase.setFloat(fbdo, databasePath, beat_send);
-      databasePath = "/data/" + uid + "/SpO2";
-      Firebase.setFloat(fbdo, databasePath, spo2_send);
-      pox.resume();
+void loop() {
+  if (Serial.available()) {
+    String data = Serial.readStringUntil('\n'); // Read entire line
 
-      tsLastReport = millis();
+    // Extract two float values from the received string
+    beat_send = getValue(data, ' ', 0);
+    spo2_send = getValue(data, ' ', 1);
+
+    // Print the extracted values
+    Serial.print("Beat: ");
+    Serial.println(beat_send);
+    Firebase.setFloat(fbdo, BEAT_PATH, beat_send);
+    Serial.print("SpO2: ");
+    Serial.println(spo2_send);
+    Firebase.setFloat(fbdo, SPO2_PATH, spo2_send);
+  }
+}
+
+float getValue(String data, char separator, int index) {
+  int found = 0;
+  int strIndex[] = {0, -1};
+  int maxIndex = data.length() - 1;
+
+  for (int i = 0; i <= maxIndex && found <= index; i++) {
+    if (data.charAt(i) == separator || i == maxIndex) {
+      found++;
+      strIndex[0] = strIndex[1] + 1;
+      strIndex[1] = (i == maxIndex) ? i + 1 : i;
     }
+  }
+
+  return found > index ? data.substring(strIndex[0], strIndex[1]).toFloat() : 0.0;
 }
