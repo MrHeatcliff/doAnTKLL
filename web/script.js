@@ -21,7 +21,7 @@ const db = getDatabase(app);
 
 const history1 = ref(db, "history/1");
 const history2 = ref(db, "history/2");
-let history=[];
+let history = [];
 
 history.push(history1)
 history.push(history2)
@@ -133,15 +133,20 @@ saveButtonEl.addEventListener("click", function() {
     //   avebpmEl.innerHTML = aveBPM.toFixed(2);
     //   aveoxyEl.innerHTML = aveOxy.toFixed(2);
     // })
+
+    // get(BPM).then((snapshot) => {
     onValue(BPM, function(snapshot) {
       // let arr = Object.keys(snapshot.val())[1]
       // Object.values(snapshot.val())
       // console.log(snapshot.val().arr.beat )
       let beat = snapshot.val();
+      oldBPM = beat;
 
       // console.log(oxy);
       console.log("beat", beat);
-      updateChartData(beat);
+      if (beat == 0) return;
+      updateChartData(beat, 0);
+      updateChartData(oldOxy, 1)
 
       bpmEl.innerHTML = beat;
       // oxyEl.innerHTML = oxy
@@ -158,15 +163,20 @@ saveButtonEl.addEventListener("click", function() {
       avebpmEl.innerHTML = aveBPM.toFixed(2);
       // aveoxyEl.innerHTML = aveOxy.toFixed(2);
     });
+
+    // get(SpO2).then((snapshot) => {
     onValue(SpO2, function(snapshot) {
       // let arr = Object.keys(snapshot.val())[1]
       // Object.values(snapshot.val())
       // console.log(snapshot.val().arr.beat )
       let oxy = snapshot.val();
+      oldOxy = oxy;
 
       console.log("oxy", oxy);
+      if (oxy == 0) return;
       // console.log(beat);
-      // updateChartData(beat)
+      updateChartData(oldBPM, 0)
+      updateChartData(oxy, 1)
 
       // bpmEl.innerHTML = beat
       oxyEl.innerHTML = oxy;
@@ -191,17 +201,28 @@ saveButtonEl.addEventListener("click", function() {
 })
 
 const ctx = document.getElementById('myChart');
-let n = 0;
 const chart = new Chart(ctx, {
   type: 'line',
   data: {
     labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    datasets: [{
-      label: 'BPM',
-      data: [],
-      borderWidth: 1,
-      tension: 0.5
-    }]
+    datasets: [
+      {
+        label: 'BPM',
+        data: [],
+        borderWidth: 1,
+        backgroundColor: 'red',
+        borderColor: 'red',
+        tension: 0.5
+      },
+      {
+        label: 'SpO2',
+        data: [],
+        borderWidth: 1,
+        backgroundColor: 'blue',
+        borderColor: 'blue',
+        tension: 0.5
+      }
+    ]
   },
   options: {
     scales: {
@@ -215,20 +236,23 @@ const chart = new Chart(ctx, {
 // const newData = [5, 10, 15, 20, 25, 30];
 // chart.data.datasets[0].data = newData;
 // chart.update();
-function updateChartData(data) {
-  if (n < 5) {
+function updateChartData(data, id) {
+  // const labels = chart.data.labels;
+  // const datasets = chart.data.datasets;
 
-    ++n;
-  }
+  // labels.push(''); // Thêm một nhãn trống
+
+  // for (let i = 0; i < datasets.length; i++) {
+  //   datasets[i].data.push(data[i]); // Thêm giá trị dữ liệu
+  // }
+  chart.data.labels.push(''); // Thêm một nhãn trống
+
+  chart.data.datasets[id].data.push(data); // Thêm giá trị dữ liệu
 
   // chart.data.labels.push(''); // Thêm một nhãn trống
+  // chart.data.labels.splice(0, 1);
+  // chart.data.datasets[0].data.splice(0, 1);
 
-  chart.data.datasets[0].data.push(data); // Thêm giá trị dữ liệu
-  if (n == 5) {
-    chart.data.labels.push(''); // Thêm một nhãn trống
-    chart.data.labels.splice(0, 1);
-    chart.data.datasets[0].data.splice(0, 1);
-  }
 
   chart.update(); // Cập nhật biểu đồ
 }
@@ -274,29 +298,29 @@ function showTable() {
     for (let j = 0; j < 2; j++) {
       const cell = document.createElement('td');
       // let path = 'history/${i + 1}'
-      if(j == 0) cell.textContent = `Lần đo sớm thứ ${i + 1} `;
-      else{
-      get(history[i]).then((snapshot) => {
-        //'snapshot.exists' checks data is available or its null
-        // And return boolean value
-        
-        // console.log(key)
-        // console.log(val)
+      if (j == 0) cell.textContent = `Lần đo sớm thứ ${i + 1} `;
+      else {
+        get(history[i]).then((snapshot) => {
+          //'snapshot.exists' checks data is available or its null
+          // And return boolean value
 
-        if (snapshot.exists) {
-          let key = Object.keys(snapshot.val())
-          let val = Object.values(snapshot.val())
           // console.log(key)
           // console.log(val)
-          cell.textContent = `Average beat: ${val[0].aveBeat} BPM, Average SpO2: ${val[0].aveSpO2} %, Date: ${val[0].date}`;
-          
-          cell.style.marginLeft = '20px';
-          cell.style.paddingLeft = '20px';
-        
-        }
-        
-      })
-        .catch((error) => console.log(error));
+
+          if (snapshot.exists) {
+            let key = Object.keys(snapshot.val())
+            let val = Object.values(snapshot.val())
+            // console.log(key)
+            // console.log(val)
+            cell.textContent = `Average beat: ${val[0].aveBeat} BPM, Average SpO2: ${val[0].aveSpO2} %, Date: ${val[0].date}`;
+
+            cell.style.marginLeft = '20px';
+            cell.style.paddingLeft = '20px';
+
+          }
+
+        })
+          .catch((error) => console.log(error));
       }
 
       row.appendChild(cell);
