@@ -13,7 +13,11 @@ body {
   margin-left: auto;
   margin-right: auto;
   background-color: white;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+.kiHieu {
+  margin-right: 20px;
 }
 
 .normal {
@@ -23,6 +27,7 @@ body {
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 5px;
+  margin-top: 30px;
   /* background-color: #FFF5EE; */
   /* justify-content: center;
   align-items: center; */
@@ -51,12 +56,20 @@ span {
   margin-left: auto;
   margin-right: auto;
   text-align: right;
-  padding-bottom: 50px;
+  padding-right: auto;
+  padding-left: auto;
+  padding-bottom: 20px;
+}
+
+.center {
+  display: flex;
+  flex-direction: row;
 }
 
 button {
   border-radius: 13px;
   /* display: block; */
+  margin-top: 30px;
   margin-left: auto;
   margin-right: auto;
   width: 100px;
@@ -114,11 +127,10 @@ Button.clicked {
 
 .popup {
   background-color: #fefefe;
-  margin: 20% auto;
+  margin: 20% 25% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
-  max-width: 400px;
+  max-width: 80%;
 }
 
 .close-button {
