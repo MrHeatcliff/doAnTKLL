@@ -2,30 +2,17 @@
 Phát triển ứng dụng đo nhịp tim và oxy máu đơn giản
 
 **I. Tổng quan**
-  - Ở đề tài này, nhóm em sẽ sử dụng Max30102 để đo nhịp tim và oxy máu và làm website và app mà trên đó hiển thị ra những thông tin như: Nhịp tim - oxy máu trong 1 khoảng thời gian nhất định
-    
-  **Sơ đồ khối**
+  - Ở đề tài này, nhóm em sẽ sử dụng Max30102 để đo nhịp tim và oxy máu và làm website và app mà trên đó hiển thị ra những thông tin như: Nhịp tim - oxy máu trong 1 khoảng thời gian nhất định, lịch sử đo.
 
 
 **II. Thực hiện**
 
   **1. Website và database**
-  
+  Link website: https://7ef711d9-df1a-47bb-b5b6-2f54dc7a521c-00-l5y87m1hnj8r.picard.replit.dev/
     _a) Database_
-    - Sử dụng https://000webhost.com/ để tạo 1 host và domain.    
-    - Tạo bảng và lưu trữ các biến: 
-      + id: đây là khóa chính, đặt chế độ tự động tăng, kiểu số unsign int, độ dài 6
-      
-      + sensor: tên loại cảm biến, sẽ hiển thị theo tên cảm biến gửi lên từ ESP8266/ESP32
-      
-      + location: vị trí đặt cảm biến, hiển thị theo giá trị gửi lên từ ESP
-      
-      + value1, 2: giá trị cảm biến esp gửi lên
-      
-      + time_act: timestamp nhận dc giá trị cảm biến
-
+    - Sử dụng firebase.
     _b) Website
-    - Dùng PHP để làm phần backend
+    - Dùng Java Script để làm phần backend
     - Lấy dữ liệu từ database và up dữ liệu lên web
   
   **2. App**
@@ -48,10 +35,7 @@ Phát triển ứng dụng đo nhịp tim và oxy máu đơn giản
 - Tuần 14	
 
 
-**Report tuần 3**
-- fix xong lỗi phần cứng
-- hoàn thành code sensor MAX 30102 để có thể thực hiện đo nhịp tim
-**Kế hoạch tuần 4**
-- Bắt đầu tìm hiểu về web, server
-- Tìm hiểu về html, css, php, mySQL
-- Tìm hiểu cách local host một server để đưa thông tin từ arduino.
+**IV. Video demo**
+Link drive: 
+- Chức năng web: https://drive.google.com/file/d/1VZV7Zstbh0BPij49CR2idF3KpQqrxxS6/view?usp=drive_link
+- Đo và lịch sử đo: https://drive.google.com/file/d/1mSMIPQ4udjMwC2xGTXA-3ypFqxyoP5UC/view?usp=sharing
