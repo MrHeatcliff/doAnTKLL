@@ -10,10 +10,10 @@ Phát triển ứng dụng đo nhịp tim và oxy máu đơn giản
   **1. Website và database**
   Link website: https://7ef711d9-df1a-47bb-b5b6-2f54dc7a521c-00-l5y87m1hnj8r.picard.replit.dev/
   
-    _a) Database_
+    a) Database
     - Sử dụng firebase.
 
-    _b) Website
+    b) Website
     - Dùng Java Script để làm phần backend
     - Lấy dữ liệu từ database và up dữ liệu lên web
   
@@ -38,6 +38,7 @@ Phát triển ứng dụng đo nhịp tim và oxy máu đơn giản
 
 
 **IV. Video demo**
+
 Link drive: 
 - Chức năng web: https://drive.google.com/file/d/1VZV7Zstbh0BPij49CR2idF3KpQqrxxS6/view?usp=drive_link
 - Đo và lịch sử đo: https://drive.google.com/file/d/1mSMIPQ4udjMwC2xGTXA-3ypFqxyoP5UC/view?usp=sharing
