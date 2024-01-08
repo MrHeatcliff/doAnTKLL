@@ -18,7 +18,7 @@ Phát triển ứng dụng đo nhịp tim và oxy máu đơn giản
     - Lấy dữ liệu từ database và up dữ liệu lên web
   
   **2. App**
-    - Dùng Mit App Inventor để làm app trên điện thoại
+    - Dùng Kodular để làm app trên điện thoại
 
 **III. Log**
 - Tuần 1	Chọn đề tài 13: Phát triển ứng dụng đo nhịp tim và oxy máu đơn giản
